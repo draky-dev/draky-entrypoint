@@ -1,0 +1,6 @@
+id: draky-entrypoint
+version: $TEMPLATE_VERSION
+variables:
+  DRAKY_ENTRYPOINT_DEBUG: 0
+  # Original entrypoint that should be triggered at the end of the draky-entrypoint.
+  DRAKY_ENTRYPOINT_ORIGINAL:
