@@ -86,15 +86,12 @@ override_configuration() {
     return 0
   fi
 
-  tmp="$(mktemp)"
-  find "${DRAKY_OVERRIDE_PATH}" -type f > "$tmp"
   while IFS= read -r i
   do
     TARGET=${i#"$DRAKY_OVERRIDE_PATH"}
     RESULT=$(template "${i}")
     echo "$RESULT" > "${TARGET}"
-  done < "$tmp"
-  rm "$tmp"
+  done < "$(find "${DRAKY_OVERRIDE_PATH}" -type f)"
   DRAKY_FUNCTION_NAME=
 }
 
