@@ -86,7 +86,7 @@ override_configuration() {
     return 0
   fi
 
-  while IFS= read -r i
+  while IFS= read -d '' -r i
   do
     TARGET=${i#"$DRAKY_OVERRIDE_PATH"}
     RESULT=$(template "${i}")
