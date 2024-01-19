@@ -23,4 +23,4 @@ build:
 	find ${DIST_PATH} -type f -name "*.sh" -exec chmod 755 {} \;
 
 package:
-	tar -cJf draky-entrypoint.${VER}.tar.xz dist/
+	tar -cJf draky-entrypoint.${VER}.tar.xz -C dist .
