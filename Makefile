@@ -21,3 +21,6 @@ build:
 	TEMPLATE_VERSION=${VER} ${TEMPLATE_RENDERER_SCRIPT} -t ${ROOT}/draky-entrypoint.addon.dk.yml.template -o ${DIST_PATH}/draky-entrypoint.addon.dk.yml
 	cp ${ROOT}/src/* ${DIST_PATH}/
 	find ${DIST_PATH} -type f -name "*.sh" -exec chmod 755 {} \;
+
+package:
+	tar -cJf draky-entrypoint.${VER}.tar.xz dist/
