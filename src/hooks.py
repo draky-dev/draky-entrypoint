@@ -39,7 +39,7 @@ def __extract_from_image(image: str, target: str) -> list[str]:
     ]
     result = run(command, check=False, capture_output=True)
     match = re.search(target + r" \[(.+)\]", result.stdout.decode(encoding='utf8'))
-    if not match.groups():
+    if not match or not match.groups():
         return []
 
     return re.findall(r"\"(.+?)\"", match.group(1))
