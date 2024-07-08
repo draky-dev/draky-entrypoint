@@ -20,7 +20,8 @@ def alter_service(name: str, service: dict, utils: object, addon: dict):
 
     # CMD needs to be redeclared if entrypoint has been overriden.
     # See: https://github.com/docker/docs/issues/6142
-    service['command'] = __extract_from_image(image, 'CMD')
+    if 'command' not in service:
+        service['command'] = __extract_from_image(image, 'CMD')
 
     if 'volumes' not in service:
         service['volumes'] = []
