@@ -95,8 +95,10 @@ override_configuration() {
       echo \"\$result\"
     }
     TARGET=\"\${1#'${DRAKY_OVERRIDE_PATH}'}\"
+    TARGET_PATH=\"\$(dirname \"\${TARGET}\")\"
     RESULT=\"\$(template \${1})\"
     echo \"Overriding: \${TARGET}\"
+    mkdir -p \"\$TARGET_PATH\"
     echo \"\${RESULT}\" > \"\${TARGET}\"
   " sh {} \;
 
