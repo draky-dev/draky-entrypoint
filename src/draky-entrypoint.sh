@@ -12,8 +12,8 @@ fi
 export DRAKY_ENTRYPOINT_CORE_BIN_PATH="${DRAKY_ENTRYPOINT_CORE_BIN_PATH:-/draky-entrypoint.core.bin}"
 export DRAKY_ENTRYPOINT_CORE_INIT_PATH="${DRAKY_ENTRYPOINT_CORE_INIT_PATH:-/draky-entrypoint.core.init.d}"
 export DRAKY_ENTRYPOINT_BIN_PATH="${DRAKY_ENTRYPOINT_BIN_PATH:-/draky-entrypoint.bin}"
-export DRAKY_ENTRYPOINT_INIT_PATH="${DRAKY_ENTRYPOINT_INIT_PATH:-/draky-entrypoint.init.d}"
 export DRAKY_ENTRYPOINT_RESOURCES_PATH="${DRAKY_ENTRYPOINT_RESOURCES_PATH:-/draky-entrypoint.resources}"
+export DRAKY_ENTRYPOINT_INIT_PATH="${DRAKY_ENTRYPOINT_INIT_PATH:-$DRAKY_ENTRYPOINT_RESOURCES_PATH/init.d}"
 
 export PATH="$DRAKY_ENTRYPOINT_CORE_BIN_PATH:$PATH"
 
@@ -142,7 +142,7 @@ if [ -d "${DRAKY_ENTRYPOINT_INIT_PATH}" ]; then
   	esac
   done
 else
-  draky_entry_log "Directory '${DRAKY_ENTRYPOINT_INIT_PATH}' has not been found. Skipping core initialization scripts."
+  draky_entry_log "Directory '${DRAKY_ENTRYPOINT_INIT_PATH}' has not been found. Skipping initialization scripts."
 fi
 
 DRAKY_ENTRYPOINT_USER=${DRAKY_ENTRYPOINT_USER:-root}
