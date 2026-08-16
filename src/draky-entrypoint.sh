@@ -147,28 +147,5 @@ fi
 
 DRAKY_ENTRYPOINT_USER=${DRAKY_ENTRYPOINT_USER:-root}
 
-if [ "$DRAKY_ENTRYPOINT_USER" = 'root' ]; then
-  # If user is root, just use the current shell.
-  if [ -n "$DRAKY_ENTRYPOINT_ORIGINAL"  ]; then
-    exec "$DRAKY_ENTRYPOINT_ORIGINAL" "$@"
-  else
-    exec "$@"
-  fi
-else
-  # If user is someone other than root, then create a new login shell to run commands as him, and pass to him env variables.
-  {
-    echo "set -a"
-    env | grep -vE "^(PWD=|HOME=|SHLVL=)" | while IFS='=' read -r key value; do
-      escaped_value=$(printf "%s" "$value" | sed "s/'/'\\\\''/g")
-      printf "export %s='%s'\n" "$key" "$escaped_value"
-    done
-    echo "set +a"
-    printf "cd '%s'\n" "$PWD"
-  } > /etc/profile.d/5-user-vars.draky-entrypoint.sh
-
-  if [ -n "$DRAKY_ENTRYPOINT_ORIGINAL"  ]; then
-    exec sudo -i -u "${DRAKY_ENTRYPOINT_USER}" -- "$DRAKY_ENTRYPOINT_ORIGINAL" "$@"
-  else
-    exec sudo -i -u "${DRAKY_ENTRYPOINT_USER}" -- "$@"
-  fi
-fi
+draky_entry_log "Starting the main process with '$*' as user '${DRAKY_ENTRYPOINT_USER}'"
+exec gosu "${DRAKY_ENTRYPOINT_USER}" "$@"
