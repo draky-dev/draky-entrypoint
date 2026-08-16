@@ -61,6 +61,6 @@ def __ensure_image(image: str):
             'pull',
             image,
         ]
-        result = run(command, check=False, capture_output=True)
+        result = run(command, check=False)
         if result.returncode != 0:
             raise ValueError(f"'{image}' image is not available.")
